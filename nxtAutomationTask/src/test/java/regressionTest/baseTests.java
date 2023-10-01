@@ -8,7 +8,7 @@ import org.testng.annotations.Parameters;
 
 public class baseTests {
 
-	private WebDriver driver;
+	protected WebDriver driver;
 	
 	@BeforeClass
 	@Parameters({"base.url"})
