@@ -11,12 +11,9 @@ public class baseTests {
 	protected WebDriver driver;
 	
 	@BeforeClass
-	@Parameters({"base.url"})
-	public void setUp(String baseurl) {
+	public void setUp() {
 		System.setProperty("webdriver.chrome.driver","resources/chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.get(baseurl);
-		driver.manage().window().maximize();
 	}
 	
 	@AfterClass

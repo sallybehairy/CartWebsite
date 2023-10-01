@@ -15,12 +15,16 @@ public class Users {
 		usersP.clickAddUser();
 	}
 	
-	public void clickAddTrip(int rowIndex) {
-		usersP.clickAddTrip(rowIndex);
+	public void clickAddTrip(String firstName, String lastName) {
+		usersP.clickAddTrip(firstName, lastName);
 	}
 	
 	public int getNumberOfUsers() {
 		return usersP.getNumberOfUsers();
+	}
+	
+	public void clickEditUser(String firstName, String lastName) {
+		usersP.clickEditUser(firstName, lastName);
 	}
 
 }

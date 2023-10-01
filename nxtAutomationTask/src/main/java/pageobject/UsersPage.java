@@ -15,25 +15,35 @@ public class UsersPage {
 	
 	public UsersPage(WebDriver webdriver) {
 		driver = webdriver;
-		wait = new WebDriverWait(webdriver, 5);
+		wait = new WebDriverWait(webdriver, 10);
 		PageFactory.initElements(driver, this);
 	}
 	
 	@FindBy(xpath = "//a[@href='/users/new']")
 	private WebElement addUser;
+	@FindBy(xpath = "//h2[text()='User Details']")
+	private WebElement addEditUserHeader;
 	
 	
 	public void clickAddUser() {
 		addUser.click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='User Details']")));
+		wait.until(ExpectedConditions.visibilityOf(addEditUserHeader));
 	}
 	
-	public void clickAddTrip(int rowIndex) {
-		driver.findElement(By.xpath("//tbody//tr[" + rowIndex + "]//span[text()='Add Trip']/ancestor::button")).click();
+	
+	//fragile implementation, since the firstName and lastName are not unique across users listing page
+	//the xpath for addtripbutton shall only work if no trips were added at all for this user
+	public void clickAddTrip(String firstName, String lastName) {
+		driver.findElement(By.xpath("//span[text()='" + firstName + "' and text()=' " + lastName + "']/ancestor::tr//td[@id='col-4']//button")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2[text()='User Trip']")));
 	}
 	
 	public int getNumberOfUsers() {
 		return driver.findElements(By.xpath("//tbody//tr")).size();
+	}
+	
+	public void clickEditUser(String firstName, String lastName) {
+		driver.findElement(By.xpath("//span[text()='" + firstName + "' and text()=' " + lastName + "']/ancestor::tr//td[@id='col-5']//button")).click();
+		wait.until(ExpectedConditions.visibilityOf(addEditUserHeader));
 	}
 }
