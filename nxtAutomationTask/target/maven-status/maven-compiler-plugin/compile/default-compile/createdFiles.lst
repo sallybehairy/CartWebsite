@@ -1,5 +1,0 @@
-pageobject\MyEventsPage.class
-pageobject\SkipPage.class
-pageobject\LoginPage.class
-base\Skip.class
-base\Login.class
