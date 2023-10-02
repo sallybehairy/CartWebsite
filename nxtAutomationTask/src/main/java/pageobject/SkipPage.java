@@ -30,9 +30,10 @@ public class SkipPage {
 		return skipBtn.isDisplayed();
 	}
 	
-	public void clickSkip() {
+	public MyEventsPage clickSkip() {
 		skipBtn.click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='My Events']")));
+		return new MyEventsPage(driver);
 	}
 	
 }

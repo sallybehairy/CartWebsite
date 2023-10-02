@@ -24,9 +24,10 @@ private WebDriverWait wait;
 	private WebElement myEventsHeader;
 	
 	
-	public void clickOnEvent(String eventName) {
+	public DashboardPage clickOnEvent(String eventName) {
 		driver.findElement(By.xpath("//div[text()='" + eventName + "']/ancestor::td")).click();
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2[text()='Dashboard']")));
+		return new DashboardPage(driver);
 	}
 	
 	public void isLoaded(){

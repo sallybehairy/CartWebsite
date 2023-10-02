@@ -38,10 +38,11 @@ public class LoginPage {
 		loginBtn.click();
 	}
 	
-	public void login(String Username, String Password) {
+	public SkipPage login(String Username, String Password) {
 		setUsername(Username);
 		setPassword(Password);
 		clickLogin();
+		return new SkipPage(driver);
 	}
 	
 	public boolean isSkipPageOpen() {

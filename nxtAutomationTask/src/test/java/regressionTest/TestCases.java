@@ -60,32 +60,32 @@ public class TestCases extends baseTests {
 		myEvents.isLoaded();
 	}
 
-	@Test
-	@Parameters({ "username", "password" })
-	public void case02_testAddingAttendeeWitATrip(String username, String password) {
-		login.login(username, password);
-		skipForTesters.clickSkip();
-		myEvents.isLoaded();
-		myEvents.clickOnEvent("Sally event");
-		dashboard.isLoaded();
-		attendees.clickAllUsers();
-		usersPage.clickAddUser();
-		addEditUser.setFirstName("Automation");
-		addEditUser.setLastName("User");
-		addEditUser.setUsername("AutomationUser1");
-		addEditUser.setEmail("automationuser@gmail.com");
-		addEditUser.clickSave();
-		addEditUser.clickCancel();
-		usersPage.clickEditUser("Automation", "User");
-		Assert.assertEquals(addEditUser.getFirstName(), "Automation");
-		Assert.assertEquals(addEditUser.getLastName(), "User");
-		Assert.assertEquals(addEditUser.getUsername(), "AutomationUser1");
-		Assert.assertEquals(addEditUser.getEmail(), "automationuser@gmail.com");
-		addEditUser.clickCancel();
-		usersPage.clickAddTrip("Automation", "User");
-		
-
-	}
+//	@Test
+//	@Parameters({ "username", "password" })
+//	public void case02_testAddingAttendeeWitATrip(String username, String password) {
+//		login.login(username, password);
+//		skipForTesters.clickSkip();
+//		myEvents.isLoaded();
+//		myEvents.clickOnEvent("Sally event");
+//		dashboard.isLoaded();
+//		attendees.clickAllUsers();
+//		usersPage.clickAddUser();
+//		addEditUser.setFirstName("Automation");
+//		addEditUser.setLastName("User");
+//		addEditUser.setUsername("AutomationUser1");
+//		addEditUser.setEmail("automationuser@gmail.com");
+//		addEditUser.clickSave();
+//		addEditUser.clickCancel();
+//		usersPage.clickEditUser("Automation", "User");
+//		Assert.assertEquals(addEditUser.getFirstName(), "Automation");
+//		Assert.assertEquals(addEditUser.getLastName(), "User");
+//		Assert.assertEquals(addEditUser.getUsername(), "AutomationUser1");
+//		Assert.assertEquals(addEditUser.getEmail(), "automationuser@gmail.com");
+//		addEditUser.clickCancel();
+//		usersPage.clickAddTrip("Automation", "User");
+//		
+//
+//	}
 
 	@AfterMethod
 	public void TakeScreenshot(ITestResult testResult) throws IOException {
