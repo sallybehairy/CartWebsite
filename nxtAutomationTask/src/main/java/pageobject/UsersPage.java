@@ -23,7 +23,8 @@ public class UsersPage {
 	private WebElement addUser;
 	@FindBy(xpath = "//h2[text()='User Details']")
 	private WebElement addEditUserHeader;
-	
+	@FindBy(xpath = "//p[contains(text(),'Showing')]")
+	private WebElement paginationBar;
 	
 	public void clickAddUser() {
 		addUser.click();
@@ -43,6 +44,7 @@ public class UsersPage {
 	}
 	
 	public void clickEditUser(String firstName, String lastName) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='" + firstName + "' and text()=' " + lastName + "']/ancestor::tr//td[@id='col-5']")));
 		driver.findElement(By.xpath("//span[text()='" + firstName + "' and text()=' " + lastName + "']/ancestor::tr//td[@id='col-5']//button")).click();
 		wait.until(ExpectedConditions.visibilityOf(addEditUserHeader));
 	}

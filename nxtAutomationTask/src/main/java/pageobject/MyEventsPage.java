@@ -34,5 +34,10 @@ private WebDriverWait wait;
 		Assert.assertTrue(driver.getCurrentUrl().contains("/events"));
 		Assert.assertTrue(myEventsHeader.isDisplayed());
 	}
-
+	
+	public DashboardPage clickOnEvent(int rowIndex) {
+		driver.findElement(By.xpath("//tr[" + rowIndex + "]//td[1]")).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2[text()='Dashboard']")));
+		return new DashboardPage(driver);
+	}
 }

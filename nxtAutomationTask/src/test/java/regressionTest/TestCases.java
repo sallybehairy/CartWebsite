@@ -51,41 +51,40 @@ public class TestCases extends baseTests {
 		driver.manage().window().maximize();
 	}
 
-	@Test
-	@Parameters({ "username", "password" })
-	public void case01_testLoginSuccessfully(String username, String password) {
-		login.login(username, password);
-		Assert.assertTrue(skipForTesters.isSkipPageOpen());
-		skipForTesters.clickSkip();
-		myEvents.isLoaded();
-	}
-
 //	@Test
 //	@Parameters({ "username", "password" })
-//	public void case02_testAddingAttendeeWitATrip(String username, String password) {
+//	public void case01_testLoginSuccessfully(String username, String password) {
 //		login.login(username, password);
+//		Assert.assertTrue(skipForTesters.isSkipPageOpen());
 //		skipForTesters.clickSkip();
 //		myEvents.isLoaded();
-//		myEvents.clickOnEvent("Sally event");
-//		dashboard.isLoaded();
-//		attendees.clickAllUsers();
-//		usersPage.clickAddUser();
-//		addEditUser.setFirstName("Automation");
-//		addEditUser.setLastName("User");
-//		addEditUser.setUsername("AutomationUser1");
-//		addEditUser.setEmail("automationuser@gmail.com");
-//		addEditUser.clickSave();
-//		addEditUser.clickCancel();
-//		usersPage.clickEditUser("Automation", "User");
-//		Assert.assertEquals(addEditUser.getFirstName(), "Automation");
-//		Assert.assertEquals(addEditUser.getLastName(), "User");
-//		Assert.assertEquals(addEditUser.getUsername(), "AutomationUser1");
-//		Assert.assertEquals(addEditUser.getEmail(), "automationuser@gmail.com");
-//		addEditUser.clickCancel();
-//		usersPage.clickAddTrip("Automation", "User");
-//		
-//
 //	}
+
+	@Test
+	@Parameters({ "username", "password" })
+	public void case02_testAddingAttendeeWitATrip(String username, String password) {
+		login.login(username, password);
+		skipForTesters.clickSkip();
+		myEvents.isLoaded();
+		myEvents.clickOnEvent(1);
+		dashboard.isLoaded();
+		dashboard.goToAttendeesPage();
+		attendees.clickAllUsers();
+		usersPage.clickAddUser();
+		addEditUser.setFirstName("Automation");
+		addEditUser.setLastName("User");
+		addEditUser.setUsername("AutomationUser5");
+		addEditUser.setEmail("automationuser5@gmail.com");
+		addEditUser.clickSave();
+		addEditUser.clickCancel();
+		usersPage.clickEditUser("Automation", "User");
+		Assert.assertEquals(addEditUser.getFirstName(), "Automation");
+		Assert.assertEquals(addEditUser.getLastName(), "User");
+		//Assert.assertEquals(addEditUser.getUsername(), "automationuserautomationuser3");
+		//Assert.assertEquals(addEditUser.getEmail(), "automationuser3@gmail.com");
+		addEditUser.clickCancel();
+		//usersPage.clickAddTrip("Automation", "User");
+	}
 
 	@AfterMethod
 	public void TakeScreenshot(ITestResult testResult) throws IOException {

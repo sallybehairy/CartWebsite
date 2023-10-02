@@ -1,6 +1,7 @@
 package pageobject;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,7 +30,7 @@ public class AddEditUserPage {
 	private WebElement username;
 	@FindBy(id = "password")
 	private WebElement password;
-	@FindBy(xpath = "//button[text()='Save']")
+	@FindBy(xpath = "//button[text()='Create']")
 	private WebElement saveBtn;
 	@FindBy(xpath = "//p[text()='Trip Info']")
 	private WebElement tripInfo;
@@ -78,13 +79,15 @@ public class AddEditUserPage {
 	}
 	
 	public void clickSave() {
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
+		wait.until(ExpectedConditions.elementToBeClickable(saveBtn));
 		saveBtn.click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//p[text()='Trip Info']")));
 	}
 	
 	public void clickCancel() {
 		cancelBtn.click();
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//h2[text()='Users']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='Users']")));
 	}
 	
 	public void clickTripInfo() {

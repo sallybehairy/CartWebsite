@@ -1,5 +1,7 @@
 package regressionTest;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
@@ -12,8 +14,9 @@ public class baseTests {
 	
 	@BeforeClass
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver","resources/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\mona.reda\\eclipse-workspace\\login\\nxtAutomationTask\\src\\main\\resources\\chromedriver.exe");
 		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	@AfterClass
