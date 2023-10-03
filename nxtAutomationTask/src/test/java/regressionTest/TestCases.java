@@ -23,7 +23,7 @@ import base.MyEvents;
 import base.Skip;
 import base.Users;
 
-public class TestCases extends baseTests {
+public class TestCases extends TestBase {
 
 	Login login;
 	Skip skipForTesters;
@@ -51,18 +51,18 @@ public class TestCases extends baseTests {
 		driver.manage().window().maximize();
 	}
 
-//	@Test
-//	@Parameters({ "username", "password" })
-//	public void case01_testLoginSuccessfully(String username, String password) {
-//		login.login(username, password);
-//		Assert.assertTrue(skipForTesters.isSkipPageOpen());
-//		skipForTesters.clickSkip();
-//		myEvents.isLoaded();
-//	}
+	@Test
+	@Parameters({ "username", "password" })
+	public void case01_testLoginSuccessfully(String username, String password) {
+		login.login(username, password);
+		Assert.assertTrue(skipForTesters.isSkipPageOpen());
+		skipForTesters.clickSkip();
+		myEvents.isLoaded();
+	}
 
 	@Test
 	@Parameters({ "username", "password" })
-	public void case02_testAddingAttendeeWitATrip(String username, String password) {
+	public void case02_testAddingAttendee(String username, String password) {
 		login.login(username, password);
 		skipForTesters.clickSkip();
 		myEvents.isLoaded();
@@ -80,20 +80,21 @@ public class TestCases extends baseTests {
 		usersPage.clickEditUser("Automation", "User");
 		Assert.assertEquals(addEditUser.getFirstName(), "Automation");
 		Assert.assertEquals(addEditUser.getLastName(), "User");
-		//Assert.assertEquals(addEditUser.getUsername(), "automationuserautomationuser3");
-		//Assert.assertEquals(addEditUser.getEmail(), "automationuser3@gmail.com");
+		Assert.assertEquals(addEditUser.getUsername(), "automationuserautomationuser3");
+		Assert.assertEquals(addEditUser.getEmail(), "automationuser3@gmail.com");
 		addEditUser.clickCancel();
-		//usersPage.clickAddTrip("Automation", "User");
 	}
 
 	@AfterMethod
-	public void TakeScreenshot(ITestResult testResult) throws IOException {
+	public void TestCasesAfterMethod(ITestResult testResult) throws IOException {
 		// Taking screenshot in case of failure
 		if (testResult.getStatus() == ITestResult.FAILURE) {
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(scrFile, new File("errorScreenshots\\" + testResult.getName() + "-"
 					+ Arrays.toString(testResult.getParameters()) + ".jpg"));
 		}
+		//closing browser
+		driver.quit();
 
 	}
 
