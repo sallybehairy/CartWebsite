@@ -3,8 +3,6 @@
 <suite name="Test Suite">
   <test name="RegressionTest">
     <parameter name="base.url" value="${base.url}" />
-    <parameter name="user.name" value="${user.name}" />
-    <parameter name="password" value="${password}" />
     <classes>
       <class name="regressionTest.TestCases">
 	  </class>
