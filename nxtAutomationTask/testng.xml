@@ -6,7 +6,7 @@
     <parameter name="user.name" value="${user.name}" />
     <parameter name="password" value="${password}" />
     <classes>
-      <class name="regressionTest.TestLoginPage">
+      <class name="regressionTest.TestCases">
 	  </class>
     </classes>
   </test>

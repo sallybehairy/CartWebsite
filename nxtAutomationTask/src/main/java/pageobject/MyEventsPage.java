@@ -7,15 +7,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class MyEventsPage {
 
-WebDriver driver;
-WebDriverWait wait;
+private WebDriver driver;
+private WebDriverWait wait;
 	
 	public MyEventsPage(WebDriver driver) {
 		this.driver = driver;
-		wait = new WebDriverWait(driver, 5);
+		wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
 	}
 	
@@ -23,8 +24,20 @@ WebDriverWait wait;
 	private WebElement myEventsHeader;
 	
 	
-	public void clickOnEvent(String eventName) {
+	public DashboardPage clickOnEvent(String eventName) {
 		driver.findElement(By.xpath("//div[text()='" + eventName + "']/ancestor::td")).click();
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(eventName)));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2[text()='Dashboard']")));
+		return new DashboardPage(driver);
+	}
+	
+	public void isLoaded(){
+		Assert.assertTrue(driver.getCurrentUrl().contains("/events"));
+		Assert.assertTrue(myEventsHeader.isDisplayed());
+	}
+	
+	public DashboardPage clickOnEvent(int rowIndex) {
+		driver.findElement(By.xpath("//tr[" + rowIndex + "]//td[1]")).click();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2[text()='Dashboard']")));
+		return new DashboardPage(driver);
 	}
 }

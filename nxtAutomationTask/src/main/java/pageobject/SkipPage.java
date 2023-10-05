@@ -1,16 +1,21 @@
 package pageobject;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SkipPage {
 
-	WebDriver driver;
+	private WebDriver driver;
+	private WebDriverWait wait;
 	
-	public SkipPage(WebDriver driver) {
-		this.driver = driver;
+	public SkipPage(WebDriver webdriver) {
+		driver = webdriver;
+		wait = new WebDriverWait(webdriver, 10);
         PageFactory.initElements(driver, this);
 	}
 	
@@ -25,8 +30,10 @@ public class SkipPage {
 		return skipBtn.isDisplayed();
 	}
 	
-	public void clickSkip() {
+	public MyEventsPage clickSkip() {
 		skipBtn.click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='My Events']")));
+		return new MyEventsPage(driver);
 	}
 	
 }
