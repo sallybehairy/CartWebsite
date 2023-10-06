@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -58,39 +59,6 @@ public class TestLoginCases extends TestBase {
 		home.clickLoginSubmit();
 		Assert.assertTrue(home.isWelcomeUsernameDispalyed(null));
 	}
-	
-//	@Test
-//	public void case02_testSignUpWithExistingUser() {
-//		home.clickSignUp();
-//		home.setSignUpUsername("AutomationUser" + currentTime);
-//		home.clickSignUpSubmit();
-//		Assert.assertEquals(cm.checkAlertMsg(), "This user already exist.");
-//		cm.acceptAlert();
-//		Assert.assertTrue(home.isSignUpModalDisplayed());
-//	}
-//	
-//	@Test
-//	public void case03_testSignUpValidations() {
-//		home.clickSignUp();
-//		home.clearSignUpUsername();
-//		home.clearSignUpPassword();
-//		home.clickSignUpSubmit();
-//		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
-//		cm.acceptAlert();
-//		Assert.assertTrue(home.isSignUpModalDisplayed());
-//		home.setSignUpPassword("12345678");
-//		home.clickSignUpSubmit();
-//		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
-//		cm.acceptAlert();
-//		Assert.assertTrue(home.isSignUpModalDisplayed());
-//		home.clearSignUpPassword();
-//		home.setSignUpUsername("AutomationUser1" + currentTime);
-//		home.clickSignUpSubmit();
-//		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
-//		cm.acceptAlert();
-//		Assert.assertTrue(home.isSignUpModalDisplayed());
-//		home.modalClose();
-//	}
 
 	@Test
 	public void case01_testqpros() {
@@ -115,5 +83,4 @@ public class TestLoginCases extends TestBase {
 					+ Arrays.toString(testResult.getParameters()) + ".jpg"));
 		}
 	}
-
 }

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -56,7 +57,7 @@ public class TestSignUpCases extends TestBase {
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "This user already exist.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalHidden());
+		Assert.assertFalse(home.isSignUpModalHidden());
 	}
 	
 	@Test
@@ -104,8 +105,6 @@ public class TestSignUpCases extends TestBase {
 			FileUtils.copyFile(scrFile, new File("errorScreenshots\\" + testResult.getName() + "-"
 					+ Arrays.toString(testResult.getParameters()) + ".jpg"));
 		}
-		//closing browser
-		driver.quit();
 
 	}
 

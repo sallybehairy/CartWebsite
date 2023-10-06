@@ -21,6 +21,7 @@ public class CartPage {
 		driver = webdriver;
 		wait = new WebDriverWait(driver, 10);
 		PageFactory.initElements(driver, this);
+
 	}
 
 	@FindBy(xpath = "//button[contains(@class,'btn-success')]")
