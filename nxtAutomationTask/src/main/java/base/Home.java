@@ -2,6 +2,7 @@ package base;
 
 import org.openqa.selenium.WebDriver;
 
+
 import pageobject.HomePage;
 import pageobject.ProductsPage;
 
@@ -12,6 +13,10 @@ public class Home {
 
 	public Home(WebDriver driver) {
 		home = new HomePage(driver);
+	}
+
+	public String getSignupModalHeader() {
+		return home.getSignupModalHeader();
 	}
 
 	public void clickSignUp() {
@@ -42,8 +47,8 @@ public class Home {
 		return home.isSignUpModalHidden();
 	}
 
-	public void modalClose() {
-		home.modalClose();
+	public void closeSignupModal() {
+		home.signupModalClose();
 	}
 
 	// Login Methods
@@ -51,8 +56,16 @@ public class Home {
 		home.clickLogin();
 	}
 
+	public void clearLoginUsername() {
+		home.clearLoginUsername();
+	}
+
 	public void setLoginUsername(String username) {
 		home.setLoginUsername(username);
+	}
+
+	public void clearLoginPassword() {
+		home.clearLoginPassword();
 	}
 
 	public void setLoginPassword(String password) {
@@ -63,12 +76,24 @@ public class Home {
 		home.clickLoginSubmit();
 	}
 
+	public void closeLoginModal() {
+		home.closeLoginModal();
+	}
+	
+	public boolean isLoginModalHidden() {
+		return home.isLoginModalHidden();
+	}
+	
 	public void loginSuccessfully(String username, String password) {
 		home.loginSuccessfully(username, password);
 	}
 
 	public boolean isWelcomeUsernameDispalyed(String username) {
 		return home.isWelcomeUsernameDispalyed(username);
+	}
+	
+	public boolean isWelcomeDisplayed() {
+		return home.isWelcomeDisplayed();
 	}
 
 	public void checkAlertUnsuccessfullLogin(String alertMsg) {

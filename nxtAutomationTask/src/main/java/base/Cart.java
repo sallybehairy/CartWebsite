@@ -1,11 +1,7 @@
 package base;
 
-import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 import pageobject.CartPage;
 
@@ -21,7 +17,7 @@ public class Cart {
 		return cart.getNumberOfItemInCart();
 	}
 	
-	public void deleteItem(int itemNumber) {
+	public void deleteItem(int itemNumber) throws InterruptedException {
 		cart.deleteItem(itemNumber);
 	}
 	

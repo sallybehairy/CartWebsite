@@ -1,6 +1,8 @@
 package regressionTest;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import base.Cart;
@@ -16,19 +18,22 @@ public class TestAddingToCart extends TestListeners {
 	Products products;
 	CommonMethods cm;
 	long currentTime = System.currentTimeMillis();
+	String baseURL;
 
 	@BeforeClass
-	public void TestCasesBeforeClass() {
+	@Parameters({"base.url"})
+	public void TestCasesBeforeClass(String baseurl) {
 		home = new Home(driver);
 		cart = new Cart(driver);
 		products = new Products(driver);
 		cm = new CommonMethods(driver);
+		home.loginSuccessfully("sallybehairy", "12345678");
+		baseURL = baseurl;
 	}
 	
 	
-	@Test(enabled = true)
-	public void case01_testqpros() {
-		home.loginSuccessfully("sallybehairy", "12345678");
+	@Test(enabled = false)
+	public void case01_testSuccessfullCheckout() {
 		home.clickOnLaptopsCategory();
 		home.clickOnItem("Sony vaio i5");
 		products.addToCart();
@@ -43,5 +48,18 @@ public class TestAddingToCart extends TestListeners {
 		cart.clickPurchase();
 		cart.clickOkAfterPurchasePopUp();
 	}
+	
+	@Test(enabled = false)
+	public void case02_testDeletingItemFromCart() throws InterruptedException {
+		driver.get(baseURL);
+		home.clickOnLaptopsCategory();
+		home.clickOnItem("Sony vaio i5");
+		products.addToCart();
+		products.goToCart();
+		Assert.assertEquals(cart.getNumberOfItemInCart(), 1);
+		cart.deleteItem(1);
+		Assert.assertEquals(cart.getNumberOfItemInCart(), 0);
+	}
+
 
 }

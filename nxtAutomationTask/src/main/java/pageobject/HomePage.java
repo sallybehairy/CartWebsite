@@ -9,6 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import components.Model;
+import components.ModelImplemenation;
+
 import java.util.List;
 
 public class HomePage {
@@ -16,33 +19,25 @@ public class HomePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	private CommonMethodsPage cm;
+	private String signupModalId = "signInModal";
+	private String loginModalId = "logInModal";
+	private Model modelPopup;
 
 	public HomePage(WebDriver webdriver) {
 		driver = webdriver;
 		PageFactory.initElements(driver, this);
 		wait = new WebDriverWait(driver, 10);
 		cm = new CommonMethodsPage(webdriver);
+		modelPopup = new ModelImplemenation(webdriver);
 	}
 
 	// Sign up
 	@FindBy(id = "signin2")
 	private WebElement signupBtn;
-	@FindBy(id = "sign-username")
-	private WebElement signupUsername;
-	@FindBy(id = "sign-password")
-	private WebElement signupPassword;
-	@FindBy(xpath = "//button[text()='Sign up']")
-	private WebElement signUpSubmit;
 
 	// Login
 	@FindBy(xpath = "//a[@id='login2']")
 	private WebElement loginBtn;
-	@FindBy(id = "loginusername")
-	private WebElement loginUsername;
-	@FindBy(id = "loginpassword")
-	private WebElement loginPassword;
-	@FindBy(xpath = "//button[text()='Log in']")
-	private WebElement loginSubmit;
 
 	// Generic
 	@FindBy(xpath = "//button[text()='Close']")
@@ -57,31 +52,47 @@ public class HomePage {
 	private WebElement monitorsCategory;
 
 	// Sign Up Methods
+	private WebElement getSignupModal() {
+		return driver.findElement(By.id(signupModalId));
+	}
+
+	public String getSignupModalHeader() {
+		return modelPopup.getTitle(signupModalId);
+	}
+
 	public void clickSignUp() {
 		signupBtn.click();
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='signInModal']")));
+		wait.until(ExpectedConditions.visibilityOf(getSignupModal()));
+	}
+
+	private WebElement getSignupModalUsernameField() {
+		return modelPopup.getModalBody(signupModalId).findElement(By.xpath(".//input[@id='sign-username']"));
 	}
 
 	public void clearSignUpUsername() {
-		signupUsername.clear();
+		getSignupModalUsernameField().clear();
 	}
 
 	public void setSignUpUsername(String username) {
 		clearSignUpUsername();
-		signupUsername.sendKeys(username);
+		getSignupModalUsernameField().sendKeys(username);
+	}
+
+	private WebElement getSignupModalPasswordField() {
+		return modelPopup.getModalBody(signupModalId).findElement(By.xpath(".//input[@id='sign-password']"));
 	}
 
 	public void clearSignUpPassword() {
-		signupPassword.clear();
+		getSignupModalPasswordField().clear();
 	}
 
 	public void setSignUpPassword(String password) {
 		clearSignUpPassword();
-		signupPassword.sendKeys(password);
+		getSignupModalPasswordField().sendKeys(password);
 	}
 
 	public void clickSignUpSubmit() {
-		signUpSubmit.click();
+		modelPopup.select(signupModalId);
 		wait.until(ExpectedConditions.alertIsPresent());
 	}
 
@@ -89,29 +100,57 @@ public class HomePage {
 		return wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='signInModal']")));
 	}
 
-	public void modalClose() {
-		signUpLoginClose.click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='signInModal']")));
+	public void signupModalClose() {
+		modelPopup.close(signupModalId);
+		wait.until(ExpectedConditions.invisibilityOf(getSignupModal()));
 	}
 
 	// Login Methods
+	private WebElement getLoginModal() {
+		return driver.findElement(By.id(loginModalId));
+	}
+
 	public void clickLogin() {
 		loginBtn.click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='logInModal']")));
+		wait.until(ExpectedConditions.visibilityOf(getLoginModal()));
+	}
+
+	private WebElement getLoginModalUsernameField() {
+		return modelPopup.getModalBody(loginModalId).findElement(By.xpath(".//input[@id='loginusername']"));
+	}
+
+	public void clearLoginUsername() {
+		getLoginModalUsernameField().clear();
 	}
 
 	public void setLoginUsername(String username) {
-		loginUsername.clear();
-		loginUsername.sendKeys(username);
+		clearLoginUsername();
+		getLoginModalUsernameField().sendKeys(username);
+	}
+
+	private WebElement getLoginModalPasswordField() {
+		return modelPopup.getModalBody(loginModalId).findElement(By.xpath(".//input[@id='loginpassword']"));
+	}
+
+	public void clearLoginPassword() {
+		getLoginModalPasswordField().clear();
 	}
 
 	public void setLoginPassword(String password) {
-		loginPassword.clear();
-		loginPassword.sendKeys(password);
+		clearLoginPassword();
+		getLoginModalPasswordField().sendKeys(password);
 	}
 
 	public void clickLoginSubmit() {
-		loginSubmit.click();
+		modelPopup.select(loginModalId);
+	}
+
+	public void closeLoginModal() {
+		modelPopup.close(loginModalId);
+	}
+
+	public boolean isLoginModalHidden() {
+		return wait.until(ExpectedConditions.invisibilityOf(getLoginModal()));
 	}
 
 	public boolean isWelcomeUsernameDispalyed(String username) {
@@ -120,13 +159,20 @@ public class HomePage {
 		return driver.findElement(By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']"))
 				.isDisplayed();
 	}
+	
+	public boolean isWelcomeDisplayed() {
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("//a[@id='nameofuser' and contains(text(),'Welcome']")));
+		return driver.findElement(By.xpath("//a[@id='nameofuser' and contains(text(),'Welcome']"))
+				.isDisplayed();
+	}
 
 	public void loginSuccessfully(String username, String password) {
 		wait.until(ExpectedConditions.visibilityOf(loginBtn));
 		clickLogin();
 		setLoginUsername(username);
 		setLoginPassword(password);
-		loginSubmit.click();
+		clickLoginSubmit();
 		wait.until(ExpectedConditions
 				.visibilityOfElementLocated(By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")));
 	}
@@ -135,7 +181,7 @@ public class HomePage {
 		wait.until(ExpectedConditions.alertIsPresent());
 		Assert.assertEquals(cm.checkAlertMsg(), alertMsg);
 		cm.acceptAlert();
-		signUpLoginClose.click();
+		closeLoginModal();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='logInModal']")));
 	}
 

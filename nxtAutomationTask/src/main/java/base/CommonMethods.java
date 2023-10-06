@@ -20,5 +20,9 @@ public class CommonMethods {
 		cm.acceptAlert();
 	}
 	
+	public boolean isAlertPresent() {
+		return cm.isAlertPresent();
+	}
+	
 	
 }

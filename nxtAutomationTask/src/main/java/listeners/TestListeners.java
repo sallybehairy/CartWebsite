@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -31,17 +32,25 @@ public class TestListeners implements ITestListener {
 		driver.manage().window().maximize();
 	}
 	
+	@BeforeMethod
+	@Parameters({ "base.url" })
+	public void beforeMethod(String baseurl) {
+		driver.get(baseurl);
+	}
+	
 	
 	@AfterMethod
 	public void TestAfterMethod(ITestResult testResult) throws IOException {
 		// Taking screenshot in case of failure
 		if (testResult.getStatus() == ITestResult.FAILURE) {
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File("errorScreenshots\\" + testResult.getName() + "-"
-					+ Arrays.toString(testResult.getParameters()) + ".jpg"));
+			FileUtils.copyFile(scrFile, new File("errorScreenshots\\" + testResult.getName() + ".jpg"));
 		}
 		
-		//closing browser session
+	}
+	
+	@AfterClass
+	public void tearDown() {
 		driver.quit();
 	}
 
