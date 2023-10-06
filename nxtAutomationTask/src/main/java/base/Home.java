@@ -1,21 +1,14 @@
 package base;
 
-import java.util.List;
-
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 
-import pageobject.CartPage;
 import pageobject.HomePage;
 import pageobject.ProductsPage;
 
 public class Home {
 
 	HomePage home;
+	CommonMethods cm;
 	
 	public Home(WebDriver driver) {
 		home = new HomePage(driver);
@@ -25,6 +18,15 @@ public class Home {
 		home.clickSignUp();
 	}
 
+	public void clearSignUpUsername() {
+		home.clearSignUpUsername();
+	}
+
+	
+	public void clearSignUpPassword() {
+		home.clearSignUpPassword();
+	}
+	
 	public void setSignUpUsername(String username) {
 		home.setSignUpUsername(username);
 	}
@@ -36,9 +38,26 @@ public class Home {
 	public void clickSignUpSubmit() {
 		home.clickSignUpSubmit();
 	}
+	
+//	public String checkAlertMsg() {
+//		return home.checkAlertMsg();
+//	}
+//	
+//	public void acceptAlert() {
+//		home.acceptAlert();
+//	}
+//	
+	public boolean isSignUpModalDisplayed() {
+		return home.isSignUpModalDisplayed();
+	}
 
-	public void signUpSuccessfully(String username, String password) {
-		home.signUp(username, password);
+
+//	public void signUpSuccessfully(String username, String password) {
+//		home.signUp(username, password);
+//	}
+	
+	public void modalClose() {
+		home.modalClose();
 	}
 
 	// Login Methods

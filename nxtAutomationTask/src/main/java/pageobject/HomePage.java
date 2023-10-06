@@ -63,29 +63,55 @@ public class HomePage {
 				.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='signInModal' and @style='display: block;']")));
 	}
 
-	public void setSignUpUsername(String username) {
+	public void clearSignUpUsername() {
 		signupUsername.clear();
+	}
+
+	public void setSignUpUsername(String username) {
+		clearSignUpUsername();
 		signupUsername.sendKeys(username);
 	}
 
-	public void setSignUpPassword(String password) {
+	public void clearSignUpPassword() {
 		signupPassword.clear();
+	}
+
+	public void setSignUpPassword(String password) {
+		clearSignUpPassword();
 		signupPassword.sendKeys(password);
 	}
-	
+
 	public void clickSignUpSubmit() {
 		signUpSubmit.click();
 	}
 
-	public void signUp(String username, String password) {
-		clickSignUp();
-		setSignUpUsername(username);
-		setSignUpPassword(password);
-		signUpSubmit.click();
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals(alert.getText(), "Sign up successful.");
-		alert.accept();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='signInModal'")));
+//	public String checkAlertMsg() {
+//		Alert alert = driver.switchTo().alert();
+//		return alert.getText();
+//	}
+//	
+//	public void acceptAlert() {
+//		Alert alert = driver.switchTo().alert();
+//		alert.accept();
+//	}
+
+	public boolean isSignUpModalDisplayed() {
+		return driver.findElement(By.xpath("//div[@id='signInModal']")).isDisplayed();
+	}
+
+//	public void signUp(String username, String password) {
+//		clickSignUp();
+//		setSignUpUsername(username);
+//		setSignUpPassword(password);
+//		signUpSubmit.click();
+//		Assert.assertEquals(checkAlertMsg(), "Sign up successful.");
+//		acceptAlert();
+//		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='signInModal']")));
+//	}
+
+	public void modalClose() {
+		signUpLoginClose.click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='signInModal']")));
 	}
 
 	// Login Methods
@@ -103,18 +129,23 @@ public class HomePage {
 		loginPassword.clear();
 		loginPassword.sendKeys(password);
 	}
-	
+
 	public void clickLoginSubmit() {
 		loginSubmit.click();
 	}
 
 	public void loginSuccessfully(String username, String password) {
-		clickLogin();
-		setLoginUsername(username);
-		setLoginPassword(password);
-		loginSubmit.click();
-		wait.until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath("//a[@id='nameofuser' and text()='Welcome '" + username + "']]")));
+		if (logoutBtn.isDisplayed()) {
+			logout();
+		} else {
+			clickLogin();
+			setLoginUsername(username);
+			setLoginPassword(password);
+			loginSubmit.click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(
+					By.xpath("//a[@id='nameofuser' and text()='Welcome '" + username + "']]")));
+		}
+
 	}
 
 	public void loginUnsuccessfully(String username, String password) {

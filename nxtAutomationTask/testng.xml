@@ -4,8 +4,8 @@
   <test name="RegressionTest">
     <parameter name="base.url" value="${base.url}" />
     <classes>
-      <class name="regressionTest.TestCases">
-	  </class>
+      <class name="regressionTest.TestSignUpCases"/>
+      <class name="regressionTest.TestLoginCases"/>
     </classes>
   </test>
 </suite>
