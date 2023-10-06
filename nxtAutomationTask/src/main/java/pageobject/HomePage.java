@@ -35,7 +35,7 @@ public class HomePage {
 	private WebElement signUpSubmit;
 
 	// Login
-	@FindBy(id = "login2")
+	@FindBy(xpath = "//a[@id='login2']")
 	private WebElement loginBtn;
 	@FindBy(id = "loginusername")
 	private WebElement loginUsername;
@@ -59,8 +59,7 @@ public class HomePage {
 	// Sign Up Methods
 	public void clickSignUp() {
 		signupBtn.click();
-		wait.until(ExpectedConditions
-				.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='signInModal']")));
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='signInModal']")));
 	}
 
 	public void clearSignUpUsername() {
@@ -114,30 +113,27 @@ public class HomePage {
 	public void clickLoginSubmit() {
 		loginSubmit.click();
 	}
-	
+
 	public boolean isWelcomeUsernameDispalyed(String username) {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")));
-		return driver.findElement(By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")).isDisplayed();
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")));
+		return driver.findElement(By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']"))
+				.isDisplayed();
 	}
 
 	public void loginSuccessfully(String username, String password) {
-		if (logoutBtn.isDisplayed()) {
-			logout();
-		} else {
-			clickLogin();
-			setLoginUsername(username);
-			setLoginPassword(password);
-			loginSubmit.click();
-			wait.until(ExpectedConditions.visibilityOfElementLocated(
-					By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")));
-		}
-
+		wait.until(ExpectedConditions.visibilityOf(loginBtn));
+		clickLogin();
+		setLoginUsername(username);
+		setLoginPassword(password);
+		loginSubmit.click();
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")));
 	}
 
 	public void checkAlertUnsuccessfullLogin(String alertMsg) {
 		wait.until(ExpectedConditions.alertIsPresent());
-		Assert.assertEquals(cm.checkAlertMsg(),alertMsg);
+		Assert.assertEquals(cm.checkAlertMsg(), alertMsg);
 		cm.acceptAlert();
 		signUpLoginClose.click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='logInModal']")));

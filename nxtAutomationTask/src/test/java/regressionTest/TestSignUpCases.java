@@ -6,8 +6,9 @@ import org.testng.annotations.Test;
 
 import base.CommonMethods;
 import base.Home;
+import listeners.TestListeners;
 
-public class TestSignUpCases extends TestBase {
+public class TestSignUpCases extends TestListeners {
 
 	Home home;
 	CommonMethods cm;

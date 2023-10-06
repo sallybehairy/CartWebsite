@@ -1,6 +1,7 @@
 package components;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -30,7 +31,7 @@ public class ModelImplemenation implements Model{
 		return getElement().findElement(By.xpath(".//div[contains(@class,'modal-body')]"));
 	}
 
-	private WebElement getSelectButton() {
+	public WebElement getSelectButton() {
 		return getModalFooter().findElement(By.xpath("//button[contains(@class,'btn-primary')]"));
 	}
 

@@ -9,5 +9,6 @@ public interface Model {
 	public String getTitle();
 	public void select();
 	public void close();
+	public WebElement getSelectButton();
 
 }

@@ -3,8 +3,11 @@ package pageobject;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,12 +21,14 @@ public class CartPage {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	private Model placeOrderModel;
+	private Actions act;
 
 	public CartPage(WebDriver webdriver) {
 		driver = webdriver;
-		wait = new WebDriverWait(driver, 10);
+		wait = new WebDriverWait(driver, 20);
 		PageFactory.initElements(driver, this);
 		placeOrderModel = new ModelImplemenation(webdriver);
+		act = new Actions(webdriver);
 
 	}
 
@@ -33,6 +38,10 @@ public class CartPage {
 	public int getNumberOfItemInCart() {
 		List<WebElement> cartProducts = driver.findElements(By.xpath("//tbody//tr"));
 		return cartProducts.size();
+	}
+	
+	public WebElement getPlaceOrderModal() {
+		return driver.findElement(By.xpath("//div[@id='orderModal']"));
 	}
 	
 	public void deleteItem(int itemNumber) {
@@ -77,7 +86,9 @@ public class CartPage {
 	}
 	
 	public void clickPurchase() {
-		placeOrderModel.select();
+		act.sendKeys(Keys.PAGE_DOWN).build().perform();
+		getPlaceOrderModal().findElement(By.xpath(".//div[contains(@class,'modal-content')]//button[contains(@class,'btn-primary')]")).click()
+		;
 	}
 	
 	public boolean isSuccessfullPurchasePopUpDisplayed() {

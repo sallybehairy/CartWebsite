@@ -22,18 +22,21 @@ public class TestListeners implements ITestListener {
 	protected WebDriver driver;
 	
 	@BeforeClass
-	public void setUp() {
-		System.setProperty("webdriver.chrome.driver","/src/main/resources/chromedriver.exe");
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
-	
-	@BeforeMethod
 	@Parameters({ "base.url" })
-	public void TestBeforeMethod(String baseurl) {
+	public void setUp(String baseurl) {
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\mona.reda\\eclipse-workspace\\CartWebsite\\nxtAutomationTask\\src\\main\\resources\\chromedriver.exe");
 		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get(baseurl);
 		driver.manage().window().maximize();
 	}
+	
+//	@BeforeMethod
+//	@Parameters({ "base.url" })
+//	public void TestBeforeMethod(String baseurl) {
+//		driver = new ChromeDriver();
+//		
+//	}
 	
 	@AfterMethod
 	public void TestAfterMethod(ITestResult testResult) throws IOException {

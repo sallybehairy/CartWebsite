@@ -5,11 +5,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import base.Products;
+import listeners.TestListeners;
 import base.Cart;
 import base.CommonMethods;
 import base.Home;
 
-public class TestLoginCases extends TestBase {
+public class TestLoginCases extends TestListeners {
 
 	Home home;
 	Cart cart;
