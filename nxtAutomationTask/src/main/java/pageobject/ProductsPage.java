@@ -28,8 +28,9 @@ public class ProductsPage{
 
 	public void addToCart() {
 		addToCartBtn.click();
+		wait.until(ExpectedConditions.alertIsPresent());
 		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals(alert.getText(), "Product added");
+		Assert.assertEquals(alert.getText(), "Product added.");
 		alert.accept();
 	}
 

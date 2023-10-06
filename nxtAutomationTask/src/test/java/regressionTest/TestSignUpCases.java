@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -41,20 +42,22 @@ public class TestSignUpCases extends TestBase {
 	public void case01_testRegisterSuccessfully() {
 		home.clickSignUp();
 		home.setSignUpUsername("AutomationUser" + currentTime);
+		home.setSignUpPassword("12345678");
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "Sign up successful.");
 		cm.acceptAlert();
-		Assert.assertFalse(home.isSignUpModalDisplayed());
+		Assert.assertTrue(home.isSignUpModalHidden());
 	}
 	
 	@Test
 	public void case02_testSignUpWithExistingUser() {
 		home.clickSignUp();
 		home.setSignUpUsername("AutomationUser" + currentTime);
+		home.setSignUpPassword("12345678");
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "This user already exist.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalDisplayed());
+		Assert.assertFalse(home.isSignUpModalHidden());
 	}
 	
 	@Test
@@ -65,18 +68,18 @@ public class TestSignUpCases extends TestBase {
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalDisplayed());
+		Assert.assertFalse(home.isSignUpModalHidden());
 		home.setSignUpPassword("12345678");
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalDisplayed());
+		Assert.assertFalse(home.isSignUpModalHidden());
 		home.clearSignUpPassword();
 		home.setSignUpUsername("AutomationUser1" + currentTime);
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalDisplayed());
+		Assert.assertFalse(home.isSignUpModalHidden());
 		home.modalClose();
 	}
 
@@ -102,8 +105,6 @@ public class TestSignUpCases extends TestBase {
 			FileUtils.copyFile(scrFile, new File("errorScreenshots\\" + testResult.getName() + "-"
 					+ Arrays.toString(testResult.getParameters()) + ".jpg"));
 		}
-		//closing browser
-		driver.quit();
 
 	}
 

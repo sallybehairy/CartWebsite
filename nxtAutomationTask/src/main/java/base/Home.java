@@ -47,8 +47,8 @@ public class Home {
 //		home.acceptAlert();
 //	}
 //	
-	public boolean isSignUpModalDisplayed() {
-		return home.isSignUpModalDisplayed();
+	public boolean isSignUpModalHidden() {
+		return home.isSignUpModalHidden();
 	}
 
 

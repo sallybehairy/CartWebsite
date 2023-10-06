@@ -13,9 +13,9 @@ public class TestBase {
 	
 	@BeforeClass
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver","/src/main/resources/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\mona.reda\\eclipse-workspace\\CartWebsite\\nxtAutomationTask\\src\\main\\resources\\chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 	
 	@AfterClass

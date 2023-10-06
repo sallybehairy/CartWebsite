@@ -21,6 +21,7 @@ public class CartPage {
 		driver = webdriver;
 		wait = new WebDriverWait(driver, 10);
 		PageFactory.initElements(driver, this);
+
 	}
 
 	@FindBy(xpath = "//button[contains(@class,'btn-success')]")
@@ -42,7 +43,7 @@ public class CartPage {
 	
 	public void clickPlaceOrderBtn() {
 		placeOrderBtn.click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-content']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='orderModal']")));
 	}
 	
 	public String getPlaceOrderModalHeader() {
