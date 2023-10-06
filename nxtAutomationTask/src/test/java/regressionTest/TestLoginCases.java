@@ -43,19 +43,22 @@ public class TestLoginCases extends TestBase {
 		driver.manage().window().maximize();
 	}
 	
-//	@Test
-//	public void case01_testLoginSuccessfully() {
-//		home.clickSignUp();
-//		home.setSignUpUsername("LoginUser" + currentTime);
-//		home.clickSignUpSubmit();
-//		Assert.assertEquals(cm.checkAlertMsg(), "Sign up successful.");
-//		cm.acceptAlert();
-//		Assert.assertFalse(home.isSignUpModalDisplayed());
-//		home.clickLogin();
-//		home.setLoginUsername("LoginUser" + currentTime);
-//		
-//	}
-//	
+	@Test
+	public void case01_testLoginSuccessfully() {
+		home.clickSignUp();
+		home.setSignUpUsername("LoginUser" + currentTime);
+		home.setSignUpPassword("12345678");
+		home.clickSignUpSubmit();
+		Assert.assertEquals(cm.checkAlertMsg(), "Sign up successful.");
+		cm.acceptAlert();
+		Assert.assertFalse(home.isSignUpModalHidden());
+		home.clickLogin();
+		home.setLoginUsername("LoginUser" + currentTime);
+		home.setLoginPassword("12345678");
+		home.clickLoginSubmit();
+		Assert.assertTrue(home.isWelcomeUsernameDispalyed(null));
+	}
+	
 //	@Test
 //	public void case02_testSignUpWithExistingUser() {
 //		home.clickSignUp();
@@ -111,9 +114,6 @@ public class TestLoginCases extends TestBase {
 			FileUtils.copyFile(scrFile, new File("errorScreenshots\\" + testResult.getName() + "-"
 					+ Arrays.toString(testResult.getParameters()) + ".jpg"));
 		}
-		//closing browser
-		driver.quit();
-
 	}
 
 }

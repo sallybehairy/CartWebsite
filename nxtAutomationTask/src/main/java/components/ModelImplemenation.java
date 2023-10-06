@@ -14,7 +14,7 @@ public class ModelImplemenation implements Model{
 
 	// div[@class='modal-content']
 	public WebElement getElement() {
-		return element;
+		return this.element;
 	}
 
 	private WebElement getModalFooter() {

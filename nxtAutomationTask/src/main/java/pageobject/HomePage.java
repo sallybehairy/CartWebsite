@@ -47,7 +47,7 @@ public class HomePage {
 	// Generic
 	@FindBy(xpath = "//button[text()='Close']")
 	private WebElement signUpLoginClose;
-	@FindBy(xpath = "//a[@id='logout2'")
+	@FindBy(xpath = "//a[@id='logout2']")
 	private WebElement logoutBtn;
 	@FindBy(xpath = "//div[@class='list-group']//a[text()='Phones']")
 	private WebElement phonesCategory;
@@ -83,6 +83,7 @@ public class HomePage {
 
 	public void clickSignUpSubmit() {
 		signUpSubmit.click();
+		wait.until(ExpectedConditions.alertIsPresent());
 	}
 
 //	public String checkAlertMsg() {
@@ -95,8 +96,8 @@ public class HomePage {
 //		alert.accept();
 //	}
 
-	public boolean isSignUpModalDisplayed() {
-		return driver.findElement(By.xpath("//div[@id='signInModal']")).isDisplayed();
+	public boolean isSignUpModalHidden() {
+		return wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='signInModal']")));
 	}
 
 //	public void signUp(String username, String password) {
@@ -133,6 +134,12 @@ public class HomePage {
 	public void clickLoginSubmit() {
 		loginSubmit.click();
 	}
+	
+	public boolean isWelcomeUsernameDispalyed(String username) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")));
+		return driver.findElement(By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")).isDisplayed();
+	}
 
 	public void loginSuccessfully(String username, String password) {
 		if (logoutBtn.isDisplayed()) {
@@ -143,7 +150,7 @@ public class HomePage {
 			setLoginPassword(password);
 			loginSubmit.click();
 			wait.until(ExpectedConditions.visibilityOfElementLocated(
-					By.xpath("//a[@id='nameofuser' and text()='Welcome '" + username + "']]")));
+					By.xpath("//a[@id='nameofuser' and text()='Welcome " + username + "']")));
 		}
 
 	}
@@ -188,7 +195,7 @@ public class HomePage {
 
 	public ProductsPage clickOnItem(String itemName) {
 		WebElement item = driver
-				.findElement(By.xpath("//div[contains(@class,'col-lg-4')][9]//a[contains(text(),'" + itemName + "')]"));
+				.findElement(By.xpath("//div[contains(@class,'col-lg-4')]//a[contains(text(),'" + itemName + "')]"));
 		item.click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@onclick,'addToCart')]")));
 		return new ProductsPage(driver);

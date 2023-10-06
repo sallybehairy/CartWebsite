@@ -1,6 +1,8 @@
 package base;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import pageobject.HomePage;
 import pageobject.ProductsPage;
@@ -47,8 +49,8 @@ public class Home {
 //		home.acceptAlert();
 //	}
 //	
-	public boolean isSignUpModalDisplayed() {
-		return home.isSignUpModalDisplayed();
+	public boolean isSignUpModalHidden() {
+		return home.isSignUpModalHidden();
 	}
 
 
@@ -79,6 +81,10 @@ public class Home {
 
 	public void loginSuccessfully(String username, String password) {
 		home.loginSuccessfully(username, password);
+	}
+	
+	public boolean isWelcomeUsernameDispalyed(String username) {
+		return home.isWelcomeUsernameDispalyed(username);
 	}
 
 	public void loginUnsuccessfully(String username, String password) {

@@ -41,20 +41,22 @@ public class TestSignUpCases extends TestBase {
 	public void case01_testRegisterSuccessfully() {
 		home.clickSignUp();
 		home.setSignUpUsername("AutomationUser" + currentTime);
+		home.setSignUpPassword("12345678");
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "Sign up successful.");
 		cm.acceptAlert();
-		Assert.assertFalse(home.isSignUpModalDisplayed());
+		Assert.assertFalse(home.isSignUpModalHidden());
 	}
 	
 	@Test
 	public void case02_testSignUpWithExistingUser() {
 		home.clickSignUp();
 		home.setSignUpUsername("AutomationUser" + currentTime);
+		home.setSignUpPassword("12345678");
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "This user already exist.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalDisplayed());
+		Assert.assertTrue(home.isSignUpModalHidden());
 	}
 	
 	@Test
@@ -65,18 +67,18 @@ public class TestSignUpCases extends TestBase {
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalDisplayed());
+		Assert.assertTrue(home.isSignUpModalHidden());
 		home.setSignUpPassword("12345678");
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalDisplayed());
+		Assert.assertTrue(home.isSignUpModalHidden());
 		home.clearSignUpPassword();
 		home.setSignUpUsername("AutomationUser1" + currentTime);
 		home.clickSignUpSubmit();
 		Assert.assertEquals(cm.checkAlertMsg(), "Please fill out Username and Password.");
 		cm.acceptAlert();
-		Assert.assertTrue(home.isSignUpModalDisplayed());
+		Assert.assertTrue(home.isSignUpModalHidden());
 		home.modalClose();
 	}
 
