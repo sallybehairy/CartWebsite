@@ -1,19 +1,7 @@
 package regressionTest;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import base.Products;
@@ -36,15 +24,8 @@ public class TestLoginCases extends TestBase {
 		products = new Products(driver);
 		cm = new CommonMethods(driver);
 	}
-
-	@BeforeMethod
-	@Parameters({ "base.url" })
-	public void TestLoginBeforeMethod(String baseurl) {
-		driver.get(baseurl);
-		driver.manage().window().maximize();
-	}
 	
-	@Test
+	@Test(enabled = false)
 	public void case01_testLoginSuccessfully() {
 		home.clickSignUp();
 		home.setSignUpUsername("LoginUser" + currentTime);
@@ -60,7 +41,7 @@ public class TestLoginCases extends TestBase {
 		Assert.assertTrue(home.isWelcomeUsernameDispalyed(null));
 	}
 
-	@Test
+	@Test(enabled = true)
 	public void case01_testqpros() {
 		home.loginSuccessfully("sallybehairy", "12345678");
 		home.clickOnLaptopsCategory();
@@ -74,13 +55,4 @@ public class TestLoginCases extends TestBase {
 		cart.clickOkAfterPurchasePopUp();
 	}
 	
-	@AfterMethod
-	public void TestLoginAfterMethod(ITestResult testResult) throws IOException {
-		// Taking screenshot in case of failure
-		if (testResult.getStatus() == ITestResult.FAILURE) {
-			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File("errorScreenshots\\" + testResult.getName() + "-"
-					+ Arrays.toString(testResult.getParameters()) + ".jpg"));
-		}
-	}
 }

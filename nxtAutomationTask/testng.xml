@@ -3,6 +3,9 @@
 <suite name="Test Suite">
   <test name="RegressionTest">
     <parameter name="base.url" value="${base.url}" />
+    <listeners>
+   		 <listener class-name="listeners.TestListeners" />
+	</listeners>
     <classes>
       <class name="regressionTest.TestSignUpCases"/>
       <class name="regressionTest.TestLoginCases"/>

@@ -1,8 +1,6 @@
 package base;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import pageobject.HomePage;
 import pageobject.ProductsPage;
@@ -11,11 +9,11 @@ public class Home {
 
 	HomePage home;
 	CommonMethods cm;
-	
+
 	public Home(WebDriver driver) {
 		home = new HomePage(driver);
 	}
-	
+
 	public void clickSignUp() {
 		home.clickSignUp();
 	}
@@ -24,11 +22,10 @@ public class Home {
 		home.clearSignUpUsername();
 	}
 
-	
 	public void clearSignUpPassword() {
 		home.clearSignUpPassword();
 	}
-	
+
 	public void setSignUpUsername(String username) {
 		home.setSignUpUsername(username);
 	}
@@ -36,28 +33,15 @@ public class Home {
 	public void setSignUpPassword(String password) {
 		home.setSignUpPassword(password);
 	}
-	
+
 	public void clickSignUpSubmit() {
 		home.clickSignUpSubmit();
 	}
-	
-//	public String checkAlertMsg() {
-//		return home.checkAlertMsg();
-//	}
-//	
-//	public void acceptAlert() {
-//		home.acceptAlert();
-//	}
-//	
+
 	public boolean isSignUpModalHidden() {
 		return home.isSignUpModalHidden();
 	}
 
-
-//	public void signUpSuccessfully(String username, String password) {
-//		home.signUp(username, password);
-//	}
-	
 	public void modalClose() {
 		home.modalClose();
 	}
@@ -74,7 +58,7 @@ public class Home {
 	public void setLoginPassword(String password) {
 		home.setLoginPassword(password);
 	}
-	
+
 	public void clickLoginSubmit() {
 		home.clickLoginSubmit();
 	}
@@ -82,14 +66,13 @@ public class Home {
 	public void loginSuccessfully(String username, String password) {
 		home.loginSuccessfully(username, password);
 	}
-	
+
 	public boolean isWelcomeUsernameDispalyed(String username) {
 		return home.isWelcomeUsernameDispalyed(username);
 	}
 
-	public void loginUnsuccessfully(String username, String password) {
-		home.loginUnsuccessfully(username, password);
-
+	public void checkAlertUnsuccessfullLogin(String alertMsg) {
+		home.checkAlertUnsuccessfullLogin(alertMsg);
 	}
 
 	public void logout() {
@@ -97,7 +80,7 @@ public class Home {
 
 	}
 
-	// Ot
+	// Other methods
 	public void clickOnPhoneCategory() {
 		home.clickOnPhoneCategory();
 	}

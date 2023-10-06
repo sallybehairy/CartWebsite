@@ -1,7 +1,6 @@
 package pageobject;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,17 +11,17 @@ import org.testng.Assert;
 
 import java.util.List;
 
-import org.openqa.selenium.Alert;
-
 public class HomePage {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
+	private CommonMethodsPage cm;
 
 	public HomePage(WebDriver webdriver) {
 		driver = webdriver;
 		PageFactory.initElements(driver, this);
 		wait = new WebDriverWait(driver, 10);
+		cm = new CommonMethodsPage(webdriver);
 	}
 
 	// Sign up
@@ -61,7 +60,7 @@ public class HomePage {
 	public void clickSignUp() {
 		signupBtn.click();
 		wait.until(ExpectedConditions
-				.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='signInModal' and @style='display: block;']")));
+				.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='signInModal']")));
 	}
 
 	public void clearSignUpUsername() {
@@ -87,30 +86,9 @@ public class HomePage {
 		wait.until(ExpectedConditions.alertIsPresent());
 	}
 
-//	public String checkAlertMsg() {
-//		Alert alert = driver.switchTo().alert();
-//		return alert.getText();
-//	}
-//	
-//	public void acceptAlert() {
-//		Alert alert = driver.switchTo().alert();
-//		alert.accept();
-//	}
-
 	public boolean isSignUpModalHidden() {
 		return wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='signInModal']")));
 	}
-
-
-//	public void signUp(String username, String password) {
-//		clickSignUp();
-//		setSignUpUsername(username);
-//		setSignUpPassword(password);
-//		signUpSubmit.click();
-//		Assert.assertEquals(checkAlertMsg(), "Sign up successful.");
-//		acceptAlert();
-//		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='signInModal']")));
-//	}
 
 	public void modalClose() {
 		signUpLoginClose.click();
@@ -157,17 +135,12 @@ public class HomePage {
 
 	}
 
-	public void loginUnsuccessfully(String username, String password) {
-		clickLogin();
-		setLoginUsername(username);
-		setLoginPassword(password);
-		loginSubmit.click();
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals(alert.getText(), "Wrong password.");
-		alert.accept();
+	public void checkAlertUnsuccessfullLogin(String alertMsg) {
+		wait.until(ExpectedConditions.alertIsPresent());
+		Assert.assertEquals(cm.checkAlertMsg(),alertMsg);
+		cm.acceptAlert();
 		signUpLoginClose.click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='logInModal']")));
-
 	}
 
 	public void logout() {

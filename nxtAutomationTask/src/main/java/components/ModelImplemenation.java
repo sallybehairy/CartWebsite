@@ -1,20 +1,21 @@
 package components;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
 public class ModelImplemenation implements Model{
 
-	private WebElement element;
+	private WebDriver driver;
 
-	public ModelImplemenation(WebElement element) {
-		this.element = element;
+	public ModelImplemenation(WebDriver driver) {
+		this.driver = driver;
 	}
 
 	// div[@class='modal-content']
 	public WebElement getElement() {
-		return this.element;
+		return driver.findElement(By.xpath("//div[@class='modal-content']"));
 	}
 
 	private WebElement getModalFooter() {

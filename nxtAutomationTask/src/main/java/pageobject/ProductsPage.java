@@ -1,6 +1,5 @@
 package pageobject;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,11 +13,13 @@ public class ProductsPage{
 
 	private WebDriver driver;
 	private WebDriverWait wait;
+	private CommonMethodsPage cm;
 
 	public ProductsPage(WebDriver webdriver) {
 		driver = webdriver;
 		PageFactory.initElements(driver, this);
 		wait = new WebDriverWait(driver, 10);
+		cm = new CommonMethodsPage(webdriver);
 	}
 
 	@FindBy(xpath = "//a[contains(@onclick,'addToCart')]")
@@ -29,9 +30,8 @@ public class ProductsPage{
 	public void addToCart() {
 		addToCartBtn.click();
 		wait.until(ExpectedConditions.alertIsPresent());
-		Alert alert = driver.switchTo().alert();
-		Assert.assertEquals(alert.getText(), "Product added.");
-		alert.accept();
+		Assert.assertEquals(cm.checkAlertMsg(), "Product added.");
+		cm.acceptAlert();
 	}
 
 	public CartPage goToCart() {

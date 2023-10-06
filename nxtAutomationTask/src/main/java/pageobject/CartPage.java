@@ -11,27 +11,25 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import components.Model;
+import components.ModelImplemenation;
 
 public class CartPage {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
+	private Model placeOrderModel;
 
 	public CartPage(WebDriver webdriver) {
 		driver = webdriver;
 		wait = new WebDriverWait(driver, 10);
 		PageFactory.initElements(driver, this);
+		placeOrderModel = new ModelImplemenation(webdriver);
 
 	}
 
 	@FindBy(xpath = "//button[contains(@class,'btn-success')]")
 	private WebElement placeOrderBtn;
-	
-	//Place order pop up
-	@FindBy(xpath = "//div[@id='orderModal']//div[@class='modal-content']")
-	private Model placeOrderModel;
 
-	
 	public int getNumberOfItemInCart() {
 		List<WebElement> cartProducts = driver.findElements(By.xpath("//tbody//tr"));
 		return cartProducts.size();
