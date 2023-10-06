@@ -31,7 +31,7 @@ public class TestAddingToCart extends TestListeners {
 		baseURL = baseurl;
 	}
 	
-	
+	//This case isnt testing certain assertion, as I didnt end up being redirected to homepage after clicking ok in sweet alert pop up
 	@Test(enabled = false)
 	public void case01_testSuccessfullCheckout() {
 		home.clickOnLaptopsCategory();

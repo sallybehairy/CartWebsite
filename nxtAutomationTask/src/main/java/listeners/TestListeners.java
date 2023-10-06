@@ -2,7 +2,6 @@ package listeners;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -22,6 +21,8 @@ public class TestListeners implements ITestListener {
 
 	protected WebDriver driver;
 	
+	//Plz replace path in setProperty function with real path where chromedriver exists on running
+	//Framework still needs some maintainence in matter of adjusting before and after methods
 	@BeforeClass
 	@Parameters({ "base.url" })
 	public void setUp(String baseurl) {

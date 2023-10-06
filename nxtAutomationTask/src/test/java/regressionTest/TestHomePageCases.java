@@ -1,16 +1,7 @@
 package regressionTest;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -87,7 +78,7 @@ public class TestHomePageCases extends TestListeners {
 		home.closeSignupModal();
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void case04_testLoginSuccessfully() {
 		home.clickSignUp();
 		home.setSignUpUsername("LoginUser" + currentTime);
@@ -103,7 +94,7 @@ public class TestHomePageCases extends TestListeners {
 		Assert.assertTrue(home.isWelcomeUsernameDispalyed("LoginUser" + currentTime));
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void case05_testItemsListedInCategories() {
 		home.clickSignUp();
 		home.setSignUpUsername("ItemsListed" + currentTime);
@@ -114,6 +105,7 @@ public class TestHomePageCases extends TestListeners {
 		home.setLoginUsername("ItemsListed" + currentTime);
 		home.setLoginPassword("12345678");
 		home.clickLoginSubmit();
+		Assert.assertTrue(home.isWelcomeUsernameDispalyed("ItemsListed" + currentTime));
 		home.clickOnLaptopsCategory();
 		Assert.assertNotEquals(home.getNumberOfItemsListedInCategory(), 0);
 		home.clickOnMonitorsCategory();
