@@ -9,6 +9,7 @@
     <classes>
       <class name="regressionTest.TestSignUpCases"/>
       <class name="regressionTest.TestLoginCases"/>
+       <class name="regressionTest.TestAddingToCart"/>
     </classes>
   </test>
 </suite>

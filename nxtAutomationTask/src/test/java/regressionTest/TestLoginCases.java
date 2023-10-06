@@ -42,18 +42,6 @@ public class TestLoginCases extends TestListeners {
 		Assert.assertTrue(home.isWelcomeUsernameDispalyed(null));
 	}
 
-	@Test(enabled = true)
-	public void case01_testqpros() {
-		home.loginSuccessfully("sallybehairy", "12345678");
-		home.clickOnLaptopsCategory();
-		home.clickOnItem("Sony vaio i5");
-		products.addToCart();
-		products.goToCart();
-		cart.clickPlaceOrderBtn();
-		cart.setName("Sally");
-		cart.setCreditCard("123");
-		cart.clickPurchase();
-		cart.clickOkAfterPurchasePopUp();
-	}
+
 	
 }

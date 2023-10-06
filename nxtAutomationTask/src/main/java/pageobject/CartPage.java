@@ -3,7 +3,6 @@ package pageobject;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,10 +21,11 @@ public class CartPage {
 	private WebDriverWait wait;
 	private Model placeOrderModel;
 	private Actions act;
+	private String modalId = "orderModal";
 
 	public CartPage(WebDriver webdriver) {
 		driver = webdriver;
-		wait = new WebDriverWait(driver, 20);
+		wait = new WebDriverWait(driver, 30);
 		PageFactory.initElements(driver, this);
 		placeOrderModel = new ModelImplemenation(webdriver);
 		act = new Actions(webdriver);
@@ -54,41 +54,40 @@ public class CartPage {
 	}
 	
 	public String getPlaceOrderModalHeader() {
-		return placeOrderModel.getTitle();
+		return placeOrderModel.getTitle(modalId);
 	}
 	
 	public void setName(String name) {
-		placeOrderModel.getModalBody().findElement(By.xpath("//input[@id='name']")).sendKeys(name);
+		placeOrderModel.getModalBody(modalId).findElement(By.xpath("//input[@id='name']")).sendKeys(name);
 	}
 	
 	public void setCountry(String country) {
-		placeOrderModel.getModalBody().findElement(By.xpath("//input[@id='country']")).sendKeys(country);
+		placeOrderModel.getModalBody(modalId).findElement(By.xpath("//input[@id='country']")).sendKeys(country);
 	}
 	
 	public void setCity(String city) {
-		placeOrderModel.getModalBody().findElement(By.xpath("//input[@id='city']")).sendKeys(city);
+		placeOrderModel.getModalBody(modalId).findElement(By.xpath("//input[@id='city']")).sendKeys(city);
 	}
 	
 	public void setCreditCard(String creditCard) {
-		placeOrderModel.getModalBody().findElement(By.xpath("//input[@id='card']")).sendKeys(creditCard);
+		placeOrderModel.getModalBody(modalId).findElement(By.xpath("//input[@id='card']")).sendKeys(creditCard);
 	}
 	
 	public void setMonth(String month) {
-		placeOrderModel.getModalBody().findElement(By.xpath("//input[@id='month']")).sendKeys(month);
+		placeOrderModel.getModalBody(modalId).findElement(By.xpath("//input[@id='month']")).sendKeys(month);
 	}
 	
 	public void setYear(String year) {
-		placeOrderModel.getModalBody().findElement(By.xpath("//input[@id='year']")).sendKeys(year);
+		placeOrderModel.getModalBody(modalId).findElement(By.xpath("//input[@id='year']")).sendKeys(year);
 	}
 	
 	public void clickClose() {
-		placeOrderModel.close();
+		placeOrderModel.close(modalId);
 	}
 	
 	public void clickPurchase() {
 		act.sendKeys(Keys.PAGE_DOWN).build().perform();
-		getPlaceOrderModal().findElement(By.xpath(".//div[contains(@class,'modal-content')]//button[contains(@class,'btn-primary')]")).click()
-		;
+		placeOrderModel.select(modalId);
 	}
 	
 	public boolean isSuccessfullPurchasePopUpDisplayed() {
@@ -98,7 +97,8 @@ public class CartPage {
 	public void clickOkAfterPurchasePopUp() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'sweet-alert')]")));
 		driver.findElement(By.xpath("//div[contains(@class,'sweet-alert')]//button[contains(@class,'btn-primary')]")).click();
-		wait.until(ExpectedConditions.urlMatches("https://demoblaze.com/index.html"));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@id='orderModal']")));
+		wait.until(ExpectedConditions.urlToBe("https://demoblaze.com/index.html"));
 	}
 	
 
